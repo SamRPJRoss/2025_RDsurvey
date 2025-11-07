@@ -1,0 +1,825 @@
+---
+title: "RDN Survey Analyses - Ceres' section"
+format: 
+  html:
+    toc: true
+editor: visual
+author:
+  - Ceres Barros
+  - Mike Fowler
+project:
+  execute-dir: project
+execute: 
+  cache: true
+  warning: false
+  message: false
+bibliography: references.bib
+---
+
+```{r setup}
+#| include: false
+#| cache: false
+
+options(repos = "https://cran.rstudio.com/")
+
+if (!"Require" %in% installed.packages())
+  install.packages("Require")
+if (!"rprojroot" %in% installed.packages())
+  install.packages("rprojroot")
+
+## check/setwd by user
+if (basename(getwd()) != "2023_RDNSurvey") {
+  projDir <- if (Sys.getenv("USERNAME") == "<mike's>") { 
+    "~/Documents/Github/2023_RDNSurvey"
+  } else {
+    rprojroot::find_rstudio_root_file()
+  }
+  
+  if (projDir == "" | basename(projDir) != "2023_RDNSurvey")
+    stop("Make sure getwd() is on '2023_RDNSurvey' project folder")
+  
+  knitr::opts_knit$set(root.dir = projDir)
+} else {
+  projDir <- rprojroot::find_rstudio_root_file()
+}
+
+invisible(Require::setLibPaths(file.path(projDir, "packages")))
+Require::Require(c(
+  "data.table",
+  "emmeans",
+  "ggExtra",
+  "ggplot2", 
+  "ggpubr",
+  "lme4",
+  "MASS",
+  "nnet",
+  "stringr",
+  "survey"
+))
+```
+
+```{r loaddata}
+#| include: false
+RD.dataset <- fread('2023.12_Final data/FINAL_Survey_S1S3_Rfriendly.csv', 
+                    stringsAsFactors = TRUE)
+```
+
+## Questions in paper assigned to Ceres for analysis
+
+### How familiar were people with ecological stability, FD, and RD?
+
+Note: we have at least one respondent with NA for RD, but not the other concepts
+
+Most respondents were very familiar with at least one of the three concepts, and ecological stability was the concept with which more respondents showed highest familiarity, followed by FD and with RD being the concept that had more respondents saying they were only mildly or not very familiar with.
+
+::: panel-tabset
+#### Barplot stacked
+
+```{r barplot1}
+#| echo: false
+
+plotData <- RD.dataset[, .(Q1_1, Q1_2, Q1_3)]
+plotData <- plotData[complete.cases(plotData)]
+plotData <- melt(plotData, measure.vars = names(plotData), value.name = "familiarity", variable.name = "Concept")
+plotData[, familiarity := as.ordered(familiarity)]
+
+qLabs <- c(Q1_1 = "Ecological Stability", 
+           Q1_2 = "Functional Diversity", 
+           Q1_3 = "Response Diversity")
+
+ggplot(plotData,
+       aes(x = familiarity, fill = Concept)) +
+  geom_bar() +
+  scale_fill_viridis_d(option = "mako",
+                       direction = -1,
+                       labels = qLabs,
+                       begin = 0.30,
+                       end = 0.9) +
+  theme_pubr(legend = "right")
+```
+
+#### Barplot stacked
+
+```{r barplot2}
+#| echo: false
+
+ggplot(plotData, aes(x = Concept, fill = familiarity)) +
+  geom_bar(position = "dodge") +
+  scale_fill_viridis_d(option = "mako",
+                       direction = -1,
+                       labels = qLabs,
+                       begin = 0.30,
+                       end = 0.9) +
+  scale_x_discrete(labels = qLabs) +
+  theme_pubr(legend = "right")
+
+```
+
+#### Barplot dodged v2 - familiarity on x axis and proportions on y axis
+
+```{r barplot3}
+#| echo: false
+
+## percent rank choices per question
+plotData2 <- plotData[, list(familiarity = names(table(familiarity)),
+                             percent = as.vector(table(familiarity))/.N), 
+                      by = Concept]
+
+ggplot(plotData2, aes(x = familiarity, fill = Concept)) +
+  geom_bar(aes(y = percent), stat = "identity", position = "dodge") +
+  scale_fill_viridis_d(option = "mako",
+                       direction = -1,
+                       labels = qLabs,
+                       begin = 0.30,
+                       end = 0.9) +
+  theme_pubr(legend = "right") +
+  labs(x = "Self-reported familiarity", y = "% votes by concept",
+       fill = "Concept")
+
+```
+
+#### Barplot of average (fitted) probabilities of ranks (from multinomial reg)
+
+```{r multinomQ1}
+#| echo: false
+
+modelData <- RD.dataset[, .(Participant_ID, Q1_1, Q1_2, Q1_3)]
+modelData <- modelData[complete.cases(modelData)]
+modelData <- melt(modelData, id.vars = "Participant_ID", value.name = "familiarity", 
+                  variable.name = "Concept")
+modelData[, familiarity := as.ordered(familiarity)]
+
+multinomQ1 <- multinom(familiarity ~ Concept, data = modelData, Hess = TRUE)
+summary(multinomQ1)
+
+plotData <- as.data.table(emmeans(multinomQ1, ~ familiarity | Concept))
+
+ggplot(plotData, aes(x = familiarity, fill = Concept)) +
+  geom_bar(aes(y = prob), stat = "identity", position = "dodge") +
+  geom_errorbar(aes(ymin = lower.CL, ymax = upper.CL), 
+                position = "dodge") +
+  scale_fill_viridis_d(option = "mako",
+                       direction = -1,
+                       labels = qLabs,
+                       begin = 0.30,
+                       end = 0.9) +
+  theme_pubr(legend = "right") +
+  labs(x = "Self-reported familiarity", y = "Average % votes by concept",
+       fill = "Concept")
+```
+:::
+
+### Is there a difference in average familiarity with these three terms/concepts?
+
+An ordinal least squares regression confirms the results above, with FD ("Q1_2") and RD ("Q1_3") having increasingly negative effects on the familiarity, with respect to ecological stability ("Q1_1"). Yet, familiarity with FD was not *significantly* different from familiarity with ecological stability (note *t*-value \< 2), indicating that the two concepts are similar in terms of respondent familiarity with them.
+
+```{r ols}
+#| echo: false
+
+modelData <- RD.dataset[, .(Participant_ID, Q1_1, Q1_2, Q1_3)]
+modelData <- modelData[complete.cases(modelData)]
+modelData <- melt(modelData, id.vars = "Participant_ID", value.name = "familiarity", 
+                  variable.name = "Concept")
+modelData[, familiarity := as.ordered(familiarity)]
+
+orderedLS <- polr(familiarity ~ Concept, data = modelData, Hess = TRUE)
+summary(orderedLS)
+
+emmeans(orderedLS, ~ Concept)
+```
+
+### Case study-related questions:
+
+Note, some responses were NA for confidence, but not for Scale choice (%) and vice-versa, these have been excluded from the analyses.
+
+<!-- make sure NAs are being excluded by participant (not answer) -->
+
+#### Relevant temporal, spatial and biological scales for analyses/monitoring/measurement of RD.
+
+A large proportion of respondents chose relatively broad temporal and spatial scales (years to multiple decades, and multiple connected habitat patches to regional areas, respectively), when asked about spatio-temporally relevant scales to measure/monitor/manage RD in the context of the presented case study.
+
+::: panel-tabset
+#### Scatterplot -- confidence binned and coloured
+
+Scaling confidence is not helpful
+
+Ceres: I like this better than distinguishing confidence via point size, it feels easier to interpret.
+
+```{r pointcol}
+#| echo: false
+
+cols <- grep(paste(paste0("^", c("Q9", "Q10")), collapse = "|"), names(RD.dataset), value = TRUE)
+cols <- c(cols, "Participant_ID")
+plotData <- RD.dataset[, ..cols]
+plotData <- plotData[complete.cases(plotData)]
+plotData1 <- plotData[, .(Participant_ID, Q9_1, Q10_1)] |>
+  melt(id.vars = "Participant_ID", 
+       value.name = "scale", variable.name = "Question")
+
+plotData2 <- plotData[, .(Participant_ID, Q9b_1, Q10b_1)] |>
+  melt(id.vars = "Participant_ID", 
+       value.name = "Confidence", variable.name = "Question")
+plotData2[, Question := sub("b", "", Question)]
+plotData <- plotData1[plotData2, on = .(Participant_ID, Question)]
+rm(plotData1, plotData2)
+
+qLabs <- c(Q9_1 = "Temporal scale", Q10_1 = "Spatial scale")
+
+ggplot(plotData,
+       aes(y = scale, x = Question, 
+           colour = cut(Confidence, c(0, 25, 50, 75, 100), 
+                        include.lowest = TRUE))) +
+  geom_jitter(size = 2) + 
+  scale_x_discrete(labels = qLabs, name = "") +
+  scale_colour_viridis_d(name = "Self-perceived\nconfidence",
+                         direction = -1,
+                         end = 0.95) + 
+  theme_pubr(legend = "right") +
+  labs(y = "Scale choice (%)")
+```
+
+#### Scatterplot -- confidence shown as size
+
+Ceres: Feels harder to read for me
+
+```{r pointsize}
+#| echo: false
+
+qLabs <- c(Q9_1 = "Temporal scale", Q10_1 = "Spatial scale")
+
+ggplot(plotData,
+       aes(y = scale, x = Question, 
+           size = Confidence, colour = Question)) +
+  geom_jitter(size = 2) + 
+  scale_x_discrete(labels = qLabs, name = "") +
+  scale_size_continuous(name = "Self-perceived\nconfidence") +
+  scale_colour_viridis_d(name = "Concept",
+                         labels = qLabs,
+                         begin = 0.2, end = 0.5) + 
+  theme_pubr(legend = "right") +
+  labs(y = "Scale choice (%)")
+```
+
+#### Scatterplot and marginal boxplots
+
+```{r pointbxplots}
+#| echo: false
+
+plot1 <- ggplot(plotData, aes(x = scale, y = Confidence, colour = Question)) +
+  geom_point() +
+  scale_colour_viridis_d(name = "Concept",
+                         labels = qLabs,
+                         begin = 0.2, end = 0.5) + 
+  theme_pubr(legend = "bottom") +
+  labs(y = "Scale choice (%)")
+
+ggMarginal(plot1, type = "boxplot")
+```
+
+#### Scatterplot and background boxplots
+
+Background boxplots showing confidence distributions.
+
+```{r pointbxplots2}
+#| echo: false
+
+ggplot(plotData, aes(y = Question, colour = Question)) +
+  geom_boxplot(aes(x = Confidence), colour = "grey70", fill = "grey95") +
+  geom_jitter(aes(x = scale)) +
+  scale_colour_viridis_d(begin = 0.2, end = 0.5, guide = "none") +
+  scale_y_discrete(labels = qLabs) +
+  theme_pubr(legend = "bottom") +
+  labs(x = "Scale choice (%)", y = "", colour = "")
+```
+
+#### Only boxplots
+
+```{r pointbxplots3}
+#| echo: false
+
+plotData2 <- melt(plotData, id.vars = c("Participant_ID", "Question"))
+ggplot(plotData2, aes(x = Question, y = value, fill = variable)) +
+  geom_boxplot()  +
+  scale_fill_viridis_d(begin = 0.2, end = 0.5) +
+  scale_x_discrete(labels = qLabs) +
+  theme_pubr(legend = "bottom") +
+  labs(y = "Scale choice (%)", x = "", fill = "")
+```
+
+#### Density plots
+
+```{r densityplot}
+#| echo: false
+#| fig-width: 12
+#| fig-height: 5
+
+plot1 <- ggplot(plotData[Question == "Q9_1"],
+                aes(x = scale, fill = Question)) +
+  geom_density() +
+  geom_density(aes(x = Confidence), alpha = 0.5, fill = "grey") +
+  annotate("text", x = c(0, 50, 100), y = rep(0.01, 3),
+           label = c("0%", "50%", "100%"), fontface = "bold", colour = "grey30") +
+  scale_fill_viridis_d(guide = "none",
+                       name = "",
+                       begin = 0.5, end = 0.5) +
+  scale_x_continuous(limits = c(0,100),
+                     breaks = c(10, 30, 50, 70, 90),
+                     labels = c("Very fine scales\n(e.g. minutes, hours)",
+                                "Daily-seasonal", "Between years\n(1-2 years)",
+                                "Broad scales\n(e.g. multiple years/decades)",
+                                "Evolutionary scales\n(millennia or multiple generation times)"),
+                     name = "") +
+  scale_y_continuous(name = "density", limits = c(0, 0.04), breaks = seq(0, 0.04, 0.01)) +
+  theme_pubr(legend = "right") +
+  guides(x = guide_axis(n.dodge = 3)) +
+  labs(title = "Temporal scale")
+
+plot2 <- ggplot(plotData[Question == "Q10_1"],
+                aes(x = scale, fill = Question)) +
+  geom_density() +
+  geom_density(aes(x = Confidence), alpha = 0.5, fill = "grey") +
+  annotate("text", x = c(0, 50, 100), y = rep(0.01, 3),
+           label = c("0%", "50%", "100%"), fontface = "bold", colour = "grey30") +
+  scale_fill_viridis_d(guide = "none",
+                       name = "",
+                       begin = 0.2, end = 0.2) +
+  scale_x_continuous(limits = c(0,100),
+                     breaks = c(12.5, 37.5, 62.5, 87.5),
+                     labels = c("Fine scales\n(microhabitats)",
+                                "Local\n(a habitat patch)",
+                                "Regional\n(multiple connected habitat patches)",
+                                "Broad scales\n(multi-regional/global scale)"),
+                     name = "") +
+  scale_y_continuous(limits = c(0, 0.04), breaks = seq(0, 0.04, 0.01), name = "") +
+  theme_pubr(legend = "right") +
+  guides(x = guide_axis(n.dodge = 3)) +
+  labs(title = "Spatial scale")
+
+ggarrange(plot1, plot2, align = "h")
+
+```
+:::
+
+```{r}
+#| echo: false
+#| fig-width: 10
+
+cols <- grep("^Q11", names(RD.dataset), value = TRUE)
+cols <- c(cols, "Participant_ID")
+plotData <- RD.dataset[, ..cols]
+
+cols <- setdiff(names(plotData), "Q11b_1")
+plotData1 <- plotData[, ..cols] |>
+  melt(id.vars = "Participant_ID", 
+       value.name = "rank", variable.name = "Question")
+
+plotData2 <- plotData[, .(Participant_ID, Q11b_1)] |>
+  melt(id.vars = "Participant_ID", 
+       value.name = "Confidence", variable.name = "Question")
+plotData <- plotData1[plotData2[, .(Participant_ID, Confidence)], 
+                      on = .(Participant_ID)]
+
+rm(plotData1, plotData2)
+
+qLabs <- c(Q11_10 = "Genetic response diversity (within a population)",
+           Q11_11 = "Metapopulation response diversity (within a species in space)",
+           Q11_12 = "Interspecific response diversity",
+           Q11_13 = "Response diversity within a single functional group (a group of organisms contributing to the same ecosystem function(s))",
+           Q11_14 = "Response diversity among functional groups (groups of organisms contributing to different ecosystem functions)",
+           Q11_15 = "Metacommunity response diversity (among communities in space)",
+           Q11_16 = "Other (please describe)",
+           Q11_9 = "None of the answers capture relevant scales")
+
+ggplot(plotData, aes(x = as.ordered(rank), fill = Question)) +
+  geom_bar() +
+  scale_fill_viridis_d(option = "mako",
+                       direction = -1,
+                       begin = 0.15,
+                       labels = ~ str_wrap(qLabs, width = 50)) +
+  theme_pubr(legend = "right") +
+  labs(y = "No. responses", x = "Rank assigned", fill = "Biological scale")
+```
+
+### Self-reported confidence in choosing a scale
+
+```{=html}
+<!--analyse relationships with level of familiarity with RD, clarity of concept and 
+career stage.-->
+```
+
+```{r confidenceStats}
+#| echo: false
+#| results: false
+
+cols <- grep(paste(paste0("^", c("Q9b", "Q10b", "Q11b")), collapse = "|"), names(RD.dataset), value = TRUE)
+cols <- c(cols, "Participant_ID")
+modelData <- RD.dataset[, ..cols]
+modelData <- modelData[complete.cases(modelData)]
+modelData <- melt(modelData, id.vars = "Participant_ID", 
+                  value.name = "Confidence", variable.name = "Question")
+
+confAnova <-  aov(Confidence ~ Question, data = modelData)
+summConfAnova <- summary(confAnova)
+
+statsDT <- emmeans(confAnova, ~ Question)
+contrst <- contrast(statsDT, method = "tukey") |>
+  as.data.table()
+```
+
+A one-way ANOVA was used to test differences in respondents' confidence when choosing a relevant temporal, spatial and biological scale for measuring/managing/monitoring RD in the case study. There was a signicant diffenrence in confidence amongs the three scale types (*F*-value: `{r} round(summConfAnova[[1]][, "F value"][1], 2)`; *p*-value: `{r} round(summConfAnova[[1]][, "Pr(>F)"][1], 2)`), driven by a significant difference in confidence between the temporal and biological Scale choice (%)s (*post-hoc* Tukey test: *t*-value = `{r} round(contrst[contrast == "Q9b_1 - Q11b_1", "t.ratio"], 2)`, *p*-value = `{r} round(contrst[contrast == "Q9b_1 - Q11b_1", "p.value"], 2)`)
+
+::: panel-tabset
+#### Means and CIs
+
+```{r confidencePlot}
+#| echo: false
+
+qLabs <- c(Q9b_1 = "Temporal scale", Q10b_1 = "Spatial scale", Q11b_1 = "Biological scale")
+
+ggplot(modelData, aes(x = Question, y = Confidence, colour = Question)) +
+  stat_summary(fun.data = "mean_ci", linewidth = 1, size = 1.2) +
+  scale_x_discrete(labels = qLabs) +
+  scale_colour_viridis_d(option = "mako",
+                         direction = -1,
+                         begin = 0.30,
+                         end = 0.9,
+                         guide = "none") +
+  theme_pubr() +
+  labs(y = "Self-reported confidence", x = "")
+```
+
+#### Fitted model
+
+```{r scaleconfidence}
+#| echo: false
+
+summConfAnova
+contrst
+```
+
+#### Residuals
+
+```{r resids}
+#| echo: false
+
+opts <- par(mfrow = c(2,2))
+plot(confAnova)
+par(opts)
+```
+:::
+
+### Factors affecting self-reported confidence in choosing a scale
+
+Several respondents (9) dropped due to NAs.
+
+We tested for the effects of respondents' familiarity with the concept of RD (Q1_3), their perspective on the clarity of RD's definition (Q2) and their career stage (Q17) on their confidence in their choice of temporal, spatial and biological scale for the case study.
+
+Using an OLS framework we started from a full model with all three predictors and their 3-way interaction and used a bidirectional stepwise approach (i.e., terms were iteratively removed and added back at each step) to select the model with lowest AIC.
+
+Confidence in assigning a temporal scale was significantly affected by the respondents' perspective on the clarity of RD's definition and by their career stage.
+
+\[Model residuals show some deviation from normality at the extremes as is expected. However, they are not so bad that a complex mixture model be warranted (i.e. a zero-one-inflated beta regression)\].
+
+```{r confidence drivers}
+#| echo: false
+
+cols <- grep(paste(paste0("^", c("Q1_3", "Q2", "Q17", "Q9b", "Q10b", "Q11b")),
+                   collapse = "|"), names(RD.dataset), value = TRUE)
+cols <- c(cols, "Participant_ID")
+modelData <- RD.dataset[, ..cols]
+modelData <- modelData[complete.cases(modelData)]
+## collapse Q17 responses
+if (any(rowSums(modelData[, .SD, .SDcols = grep("Q17", cols, value = TRUE)]) > 1)) {
+  stop("More than one option chosen for career stage")
+}
+modelData[, `:=`(Q17_2 = Q17_2*2, 
+                 Q17_3 = Q17_3*3, 
+                 Q17_4 = Q17_4*4)]
+modelData[, Q17 := rowSums(.SD), .SDcols = grep("Q17", cols, value = TRUE)]
+modelData[, Q17 := factor(Q17, levels = 1:4, 
+                          labels = c("Student/Recent grad.",
+                                     "2-5 yrs Post-PhD",
+                                     "5-10 yrs Post-PhD",
+                                     "+10 yrs Post-PhD"))]
+modelData[, Q1_3 := as.ordered(Q1_3)]
+
+mod_confidenceQ9 <- lm(Q9b_1 ~ Q1_3 * Q2 * Q17, data = modelData)
+mod_confidenceQ9best <- stepAIC(mod_confidenceQ9, direction = "both")
+
+opts <- par(mfrow = c(2,2))
+plot(mod_confidenceQ9best)   
+par(opts)
+
+summary(mod_confidenceQ9best)
+anova(mod_confidenceQ9best)
+```
+
+### Is there an influence of choices RD definitions in an ecological context on the choice of stability definition most related to RD?
+
+Note that participants 10 and 24 made no selection for Q4 (maybe they answered "Other"?) and participant 37 made no selection for Q7 (maybe they chose "Other"?).
+
+```{r}
+#| echo: false
+
+cols <- grep("Q7|Participant", names(RD.dataset), value = TRUE)
+plotData <- melt(RD.dataset[, ..cols], 
+                 id.vars = grep("Participant", names(RD.dataset), value = TRUE), 
+                 measure.vars = grep("Q7", names(RD.dataset), value = TRUE),
+                 value.name = "value", variable.name = "Q7", variable.factor = FALSE)
+plotData <- plotData[value > 0, .(Participant_ID, Q7)]
+
+cols <- grep("Q4|Participant", names(RD.dataset), value = TRUE)
+plotData2 <- melt(RD.dataset[, ..cols], 
+                  id.vars = grep("Participant", names(RD.dataset), value = TRUE), 
+                  measure.vars = grep("Q4", names(RD.dataset), value = TRUE),
+                  value.name = "value", variable.name = "Q4", variable.factor = FALSE)
+plotData2 <- plotData2[value > 0, .(Participant_ID, Q4)]
+
+plotData <- plotData2[plotData, on = "Participant_ID", allow.cartesian = TRUE]
+rm(plotData2)
+
+qLabs <- c(Q7_12 = "a", 
+           Q7_13 = "b", 
+           Q7_14 = "c",
+           Q7_15 = "d", 
+           Q7_16 = "e", 
+           Q7_17 = "f",
+           Q7_18 = "g", 
+           Q7_19 = "h", 
+           Q7_20 = "i",
+           Q7_21 = "j")
+
+qLabs2 <- c(Q4_1 = "a", 
+            Q4_2 = "b", 
+            Q4_3 = "c",
+            Q4_4 = "d",
+            Q4_5 = "e")
+```
+
+::: panel-tabset
+#### Barplot stacked
+
+```{r barplot4}
+#| echo: false
+
+ggplot(plotData,
+       aes(x = Q7, fill = Q4)) +
+  geom_bar() +
+  scale_fill_brewer(type = "qual",
+                    labels = qLabs2) +
+  scale_x_discrete(labels = qLabs) +
+  theme_pubr(legend = "right")
+
+```
+
+#### Barplot dodged
+
+```{r barplot5}
+#| echo: false
+
+ggplot(plotData,
+       aes(x = Q7, fill = Q4)) +
+  geom_bar(position = "dodge") +
+  scale_fill_brewer(type = "qual",
+                    labels = qLabs2) +
+  scale_x_discrete(labels = qLabs) +
+  theme_pubr(legend = "right")
+
+```
+
+#### Barplot -- multinomial test results
+
+```{r multinomQ7Q4}
+#| echo: false
+
+plotData$Q7 <- relevel(as.factor(plotData$Q7), ref = "Q7_12")  ## "no relationship"
+multinomQ7_Q4 <- multinom(Q7 ~ Q4, data = plotData, Hess = TRUE)
+summary(multinomQ7_Q4)
+
+plotData2 <- as.data.table(emmeans(multinomQ7_Q4, ~ Q7 | Q4))
+
+plotData2$lower.CL <- pmax(plotData2$lower.CL,0) # force -ve lower CIs to zero
+
+ggplot(plotData2, aes(x = Q7, fill = as.factor(Q4))) +
+  geom_bar(aes(y = prob), stat = "identity", position = "dodge") +
+  geom_errorbar(aes(ymin = lower.CL, ymax = upper.CL), 
+                position = "dodge") +
+  scale_x_discrete(labels = qLabs) +
+  scale_fill_brewer(type = "qual",
+                    labels = qLabs2) +
+  theme_pubr(legend = "right") +
+  labs(x = "Ecological stability dimension driven by RD",
+       y = "Probability",
+       fill = "RD definition")
+```
+:::
+
+We can apply a First Order Rao-Scott Corrected Chi-square (@survey) to a contingency table of frequencies of Q4 choices by Q7 choices (see Chapter 7 in @chambers2003; @decady2000).
+
+```{r chisq}
+#| echo: false
+
+## Rao-Scott first-order correction
+svychisq(~Q4 + Q7, design = svydesign(ids = ~Participant_ID, data = plotData), statistic = "Chisq")
+
+# ## Rao-Scott second-order correction
+# svychisq(~Q4 + Q7, design = svydesign(ids = ~Participant_ID, data = plotData))
+```
+
+### Is there an influence of interest in ecological stability (Q5c = Q5_10) RD on the choice of stability definition most related to RD?
+
+Note that participant 37 made no selection for Q7 (maybe they chose "Other"?).
+
+We use a multinomial logistic regression and adjusted Chi-square (see above) to evaluate whether any of the options chosen in Q7 (the realtionship between RD and ecological stability) is related to having an interest in studying ecological stability via the study of RD (Q5, option c).
+
+Multinomial model results do not show an extremely clear pattern and Chi-square tests confirm no significant differences in frequencies of Q7 responses by interest in studying ecological stability via RD.
+
+::: panel-tabset
+#### Barplot -- multinomial model results
+
+```{r multinomQ7Q5}
+#| echo: false
+cols <- grep("Q7|Participant", names(RD.dataset), value = TRUE)
+modelData <- melt(RD.dataset[, ..cols], 
+                  id.vars = grep("Participant", names(RD.dataset), value = TRUE), 
+                  measure.vars = grep("Q7", names(RD.dataset), value = TRUE),
+                  value.name = "value", variable.name = "Q7", variable.factor = FALSE)
+modelData <- modelData[value > 0, .(Participant_ID, Q7)] 
+setdiff(RD.dataset$Participant_ID, modelData$Participant_ID) ## participant 37 made no choice
+
+
+cols <- grep("Q5_10|Participant", names(RD.dataset), value = TRUE)
+modelData2 <- RD.dataset[, ..cols]
+
+modelData <- modelData2[modelData, on = "Participant_ID", allow.cartesian = TRUE]
+rm(modelData2)
+
+modelData$Q7 <- relevel(as.factor(modelData$Q7), ref = "Q7_12")  ## "no relationship"
+multinomQ7_Q5 <- multinom(Q7 ~ Q5_10, data = modelData, Hess = TRUE)
+summary(multinomQ7_Q5)
+
+plotData <- as.data.table(emmeans(multinomQ7_Q5, ~ Q7 | Q5_10))
+
+qLabs <- c(Q7_12 = "a", 
+           Q7_13 = "b", 
+           Q7_14 = "c",
+           Q7_15 = "d", 
+           Q7_16 = "e", 
+           Q7_17 = "f",
+           Q7_18 = "g", 
+           Q7_19 = "h", 
+           Q7_20 = "i",
+           Q7_21 = "j")
+
+qLabs2 <- c("0" = "No interest", 
+            "1" = "Interest")
+
+plotData$lower.CL <- pmax(plotData$lower.CL,0) # force -ve lower CIs to zero
+
+ggplot(plotData, aes(x = Q7, fill = as.factor(Q5_10))) +
+  geom_bar(aes(y = prob), stat = "identity", position = "dodge") +
+  geom_errorbar(aes(ymin = lower.CL, ymax = upper.CL), 
+                position = "dodge") +
+  scale_x_discrete(labels = qLabs) +
+  scale_fill_viridis_d(option = "mako",
+                       direction = -1,
+                       begin = 0.30,
+                       end = 0.9) +
+  theme_pubr(legend = "right") +
+  labs(x = "Ecological stability dimension driven by RD",
+       y = "Probability",
+       fill = "Interest in understanding ecological\nstability via RD")
+
+```
+
+#### Adjusted Chi-square
+
+```{r chisq2}
+#| echo: false
+
+modelData$Q5_10 <- as.factor(modelData$Q5_10)
+## Rao-Scott first-order correction
+svychisq(~Q5_10 + Q7, design = svydesign(ids = ~Participant_ID, data = modelData), statistic = "Chisq")
+
+# ## Rao-Scott second-order correction
+# svychisq(~Q5_10 + Q7, design = svydesign(ids = ~Participant_ID, data = modelData))
+
+```
+:::
+
+### Does respondents' area(s) of specialism (Q19) affect response to Q7?
+
+Note that participant 37 made no selection for Q7 (maybe they chose "Other"?), and participant 17 made no selection for area of expertise (maybe they chose "Other"?). Participant's 17 response for Q19 was recoded as "Other" here.
+
+Although most of our respondents reported being community ecologists, the analysis indicates that different areas of expertise might have influenced the choice of ecological stability dimension RD is most related to.
+
+For instance, evolutionary ecologists selected option Qe) ("The (a)synchronicity of the temporal population dynamics of different species in a community") more often than other options. Yet, results results were possibly driven by only one respondent selecting option 7A (“No relationship with ecological stability”) and that respondent being the only one who selected “Other” in area of expertise.
+
+::: panel-tabset
+#### Dodged barplot of answers
+
+```{r barplotdata}
+#| echo: false
+#| results: false
+
+cols <- grep("Q7|Participant", names(RD.dataset), value = TRUE)
+modelData <- melt(RD.dataset[, ..cols], 
+                  id.vars = grep("Participant", names(RD.dataset), value = TRUE), 
+                  measure.vars = grep("Q7", names(RD.dataset), value = TRUE),
+                  value.name = "value", variable.name = "Q7", variable.factor = FALSE)
+modelData <- modelData[value > 0, .(Participant_ID, Q7)] 
+setdiff(RD.dataset$Participant_ID, modelData$Participant_ID) ## participant 37 made no choice
+
+cols <- grep("Q19|Participant", names(RD.dataset), value = TRUE)
+modelData2 <- RD.dataset[, ..cols]
+
+modelData2 <- melt(modelData2, id.vars = "Participant_ID", variable.name = "Q19")
+modelData2 <- modelData2[value > 0]
+modelData2[, value := NULL]
+setdiff(RD.dataset$Participant_ID, modelData2$Participant_ID) ## participant 17 did not select any option. We'll code them as "other"
+
+modelData2 <- modelData2[RD.dataset[, .(Participant_ID)], on = "Participant_ID", nomatch = NA]
+modelData2[is.na(Q19), Q19 := "Other"]
+
+modelData <- modelData2[modelData, on = "Participant_ID", allow.cartesian = TRUE]
+rm(modelData2)
+```
+
+```{r barplot6}
+#| echo: false
+
+qLabs <- c(Q7_12 = "a", 
+           Q7_13 = "b", 
+           Q7_14 = "c",
+           Q7_15 = "d", 
+           Q7_16 = "e", 
+           Q7_17 = "f",
+           Q7_18 = "g", 
+           Q7_19 = "h", 
+           Q7_20 = "i",
+           Q7_21 = "j")
+
+qLabs2 <- c("Q19_1" = "Community ecology",
+            "Q19_2" = "Population ecology",
+            "Q19_3" = "Ecosystem ecology",
+            "Q19_4" = "Biogeography / macroecology",
+            "Q19_5" = "Theoretical / mathematical ecology",
+            "Q19_6" = "Evolutionary biology",
+            "Q19_7" = "Socioecology or social sciences",
+            "Other" = "Other")
+
+ggplot(modelData,
+       aes(x = Q7, fill = Q19)) +
+  geom_bar(position = "dodge") +
+  scale_fill_brewer(type = "qual",
+                    labels = qLabs2) +
+  scale_x_discrete(labels = qLabs) +
+  theme_pubr(legend = "right") +
+  labs(x = "Ecological stability dimension driven by RD",
+       y = "Count",
+       fill = "Respondents' area of expertise")
+```
+
+#### Multinomial model with barplot
+
+```{r multinomQ7Q19}
+#| echo: false
+
+modelData$Q7 <- relevel(as.factor(modelData$Q7), ref = "Q7_12")  ## "no relationship"
+multinomQ7_Q19 <- multinom(Q7 ~ Q19, data = modelData, Hess = TRUE)
+summary(multinomQ7_Q19)
+
+plotData <- as.data.table(emmeans(multinomQ7_Q19, ~ Q7 | Q19))
+
+plotData$lower.CL <- pmax(plotData$lower.CL,0) # force -ve lower CIs to zero
+
+ggplot(plotData, aes(x = Q7, fill = as.factor(Q19))) +
+  geom_bar(aes(y = prob), stat = "identity", position = "dodge") +
+  geom_errorbar(aes(ymin = lower.CL, ymax = upper.CL), 
+                position = "dodge") +
+  scale_x_discrete(labels = qLabs) +
+  scale_fill_brewer(type = "qual",
+                    labels = qLabs2) +
+  theme_pubr(margin = FALSE, legend = "bottom") +
+  labs(x = "Ecological stability dimension driven by RD",
+       y = "Probability",
+       fill = "Area of expertise") +
+  guides(fill = guide_legend(nrow = 4))
+
+```
+
+#### Adjusted Chi-square
+
+```{r}
+#| echo: false
+
+modelData$Q19 <- as.factor(modelData$Q19)
+## Rao-Scott first-order correction
+svychisq(~Q19 + Q7, design = svydesign(ids = ~Participant_ID, data = modelData), 
+         statistic = "Chisq")
+
+# ## Rao-Scott second-order correction
+# svychisq(~Q19 + Q7, design = svydesign(ids = ~Participant_ID, data = modelData))
+
+```
+:::

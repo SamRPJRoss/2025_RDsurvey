@@ -1,0 +1,113 @@
+﻿Number,Question,Choice
+Q1_1,"How familiar are you with work on the following topics? 
+
+Sliding scale from 1-5 as follows:
+1 = Unfamiliar
+2 = Slightly familiar
+3 = Moderately familiar
+4 = Very familiar
+5 = Extremely familiar/actively work in that field",Ecological Stability
+Q1_2,"How familiar are you with work on the following topics? 
+
+Sliding scale from 1-5 as follows:
+1 = Unfamiliar
+2 = Slightly familiar
+3 = Moderately familiar
+4 = Very familiar
+5 = Extremely familiar/actively work in that field",Functional Diversity
+Q1_3,"How familiar are you with work on the following topics? 
+
+Sliding scale from 1-5 as follows:
+1 = Unfamiliar
+2 = Slightly familiar
+3 = Moderately familiar
+4 = Very familiar
+5 = Extremely familiar/actively work in that field",Response Diversity
+Q2,Do you think that response diversity is a clear concept?,NA
+Q3,Do you think that response diversity has a widely accepted definition?,NA
+Q4_1,Which of these options (if any) captures what you consider response diversity to be in an ecological context? Choose all that apply,Variation in how species respond to environmental change
+Q4_2,Which of these options (if any) captures what you consider response diversity to be in an ecological context? Choose all that apply,Variation in how functionally redundant species (i.e. species contributing to the same ecosystem function(s)) respond to environmental change
+Q4_3,Which of these options (if any) captures what you consider response diversity to be in an ecological context? Choose all that apply,Variation in how individuals respond to environmental change
+Q4_4,Which of these options (if any) captures what you consider response diversity to be in an ecological context? Choose all that apply,Diversity of functional response traits within a functional effect group (a group of species with similar functional effect traits)
+Q4_5,Which of these options (if any) captures what you consider response diversity to be in an ecological context? Choose all that apply,Variation in gene expression under environmental change
+Q5_8,Which of these options (if any) best captures the reasons behind your interest in studying response diversity? Choose all that apply,I am not interested in studying response diversity
+Q5_9,Which of these options (if any) best captures the reasons behind your interest in studying response diversity? Choose all that apply,To gain understanding of current response diversity levels in the community/ecosystem
+Q5_10,Which of these options (if any) best captures the reasons behind your interest in studying response diversity? Choose all that apply,To gain understanding of current ecosystem stability/resilience and the underlying mechanisms
+Q5_11,Which of these options (if any) best captures the reasons behind your interest in studying response diversity? Choose all that apply,To maximise the ability of ecosystems to cope with and/or adapt to environmental change in practice
+Q5_12,Which of these options (if any) best captures the reasons behind your interest in studying response diversity? Choose all that apply,To forecast or understand changes in ecosystem functioning under environmental change
+Q5_13,Which of these options (if any) best captures the reasons behind your interest in studying response diversity? Choose all that apply,To inform policy about important aspects of biodiversity and species to be conserved
+Q6_1,Which of these options (if any) best describes how you see response diversity relating to conservation and/or ecosystem management? Choose all that apply,"Maintaining ecosystem functioning under environmental change by active manipulation of community composition (or genetic, or intraspecific variation)"
+Q6_2,Which of these options (if any) best describes how you see response diversity relating to conservation and/or ecosystem management? Choose all that apply,Mitigating the impacts of environmental change on ecosystems based on predictions from response diversity theory
+Q6_3,Which of these options (if any) best describes how you see response diversity relating to conservation and/or ecosystem management? Choose all that apply,Monitoring response diversity as a neglected aspect of biodiversity monitoring.
+Q7_12,Response diversity has been proposed as a possible driver of ecological stability. Which of the following aspect(s) of stability (if any) do you think response diversity may mechanistically drive?,No relationship with ecological stability
+Q7_13,Response diversity has been proposed as a possible driver of ecological stability. Which of the following aspect(s) of stability (if any) do you think response diversity may mechanistically drive?,The continuation of a community or emergent ecosystem property through time despite environmental change
+Q7_14,Response diversity has been proposed as a possible driver of ecological stability. Which of the following aspect(s) of stability (if any) do you think response diversity may mechanistically drive?,The continued delivery of ecosystem services through time despite environmental change
+Q7_15,Response diversity has been proposed as a possible driver of ecological stability. Which of the following aspect(s) of stability (if any) do you think response diversity may mechanistically drive?,The variability of a community or emergent ecosystem property through time
+Q7_16,Response diversity has been proposed as a possible driver of ecological stability. Which of the following aspect(s) of stability (if any) do you think response diversity may mechanistically drive?,The (a)synchronicity of the temporal population dynamics of different species in a community
+Q7_17,Response diversity has been proposed as a possible driver of ecological stability. Which of the following aspect(s) of stability (if any) do you think response diversity may mechanistically drive?,"The distribution of species (or populations, or genes) across space (either locally or across multiple habitat patches)"
+Q7_18,Response diversity has been proposed as a possible driver of ecological stability. Which of the following aspect(s) of stability (if any) do you think response diversity may mechanistically drive?,"The (a)synchronicity of the population dynamics of a species (or population, or gene) among different local habitat patches (connected or unconnected)"
+Q7_19,Response diversity has been proposed as a possible driver of ecological stability. Which of the following aspect(s) of stability (if any) do you think response diversity may mechanistically drive?,The amount of change in species' biomass or an emergent ecosystem property in response to an abrupt environmental change
+Q7_20,Response diversity has been proposed as a possible driver of ecological stability. Which of the following aspect(s) of stability (if any) do you think response diversity may mechanistically drive?,The rate at which species' biomass or an emergent ecosystem property return to pre-disturbance values following an abrupt environmental change
+Q7_21,Response diversity has been proposed as a possible driver of ecological stability. Which of the following aspect(s) of stability (if any) do you think response diversity may mechanistically drive?,The capacity for species' biomass or an emergent ecosystem property to return to pre-disturbance values following an abrupt environmental change or not (no return may indicate a change in ecosystem ‚Äústate‚Äù)
+Q9_1,"Briefly consider an ecological community composed of a number of plant species, each of which has a slightly different preferred environmental condition. Under natural conditions, the environment (temperature, nutrient availability, weather etc.) changes on predictable cycles such as the diurnal and annual seasonal cycles, and less predictably through stochastic environmental changes to environmental conditions (e.g. an a-typically prolonged drought) and via longer-term climate change. Researchers and ecosystem managers may be interested in ensuring the continued functioning of this community and its contributions to people.  In this regard they may measure, monitor, or manage for the persistence of the community through time (do populations of species persist without going locally extinct?) as well as the stability (low variability) of the total community biomass or species composition through time.
+
+Considering the above example, at what temporal scale might you consider response diversity to be the most relevant to measure, monitor, or manage for persistence or stability in this way?
+
+Sliding scale from 1-100, roughly:
+1-20 = Very fine scales (e.g. minutes, hours)
+21-40 = e.g. Daily-seasonal
+41-60 = e.g. between yrs (1-2 years)
+61-80 = Broad scales (e.g. multiple years, decades, longer)
+81+ = Evolutionary scales (millennia or multiple generation times) - Temporal scale of relevance:",NA
+Q9b_1,How confident are you in your above answer?,NA
+Q10_1,"Considering the same example as above, at what spatial scale might you consider response diversity to be most relevant to measure, monitor, or manage for persistence or stability in this way?
+
+Sliding scale from 1-100, roughly:
+1-25 = Fine scales (e.g. microhabitats)
+26-50 = Local (e.g. a single habitat patch)
+51-75 = Regional (e.g. multiple connected local habitat patches)
+76+ = Broad scales (e.g. multi-regional or global scale) - Spatial scale of relevance:",NA
+Q10b_1,How confident are you in your above answer?,NA
+Q11_9,"Considering the same example as above, at what biological scale(s) might you consider response diversity to be most relevant to measure, monitor, or manage for persistence or stability in this way? Please rank all options that you consider relevant, with 1 indicating the most relevant for measuring, monitoring, or managing for persistence or stability.",None of the answers capture relevant scales
+Q11_10,"Considering the same example as above, at what biological scale(s) might you consider response diversity to be most relevant to measure, monitor, or manage for persistence or stability in this way? Please rank all options that you consider relevant, with 1 indicating the most relevant for measuring, monitoring, or managing for persistence or stability.",Genetic response diversity (within a population)
+Q11_11,"Considering the same example as above, at what biological scale(s) might you consider response diversity to be most relevant to measure, monitor, or manage for persistence or stability in this way? Please rank all options that you consider relevant, with 1 indicating the most relevant for measuring, monitoring, or managing for persistence or stability.",Metapopulation response diversity (within a species in space)
+Q11_12,"Considering the same example as above, at what biological scale(s) might you consider response diversity to be most relevant to measure, monitor, or manage for persistence or stability in this way? Please rank all options that you consider relevant, with 1 indicating the most relevant for measuring, monitoring, or managing for persistence or stability.",Interspecific response diversity
+Q11_13,"Considering the same example as above, at what biological scale(s) might you consider response diversity to be most relevant to measure, monitor, or manage for persistence or stability in this way? Please rank all options that you consider relevant, with 1 indicating the most relevant for measuring, monitoring, or managing for persistence or stability.",Response diversity within a single functional group (a group of organisms contributing to the same ecosystem function(s))
+Q11_14,"Considering the same example as above, at what biological scale(s) might you consider response diversity to be most relevant to measure, monitor, or manage for persistence or stability in this way? Please rank all options that you consider relevant, with 1 indicating the most relevant for measuring, monitoring, or managing for persistence or stability.",Response diversity among functional groups (groups of organisms contributing to different ecosystem functions)
+Q11_15,"Considering the same example as above, at what biological scale(s) might you consider response diversity to be most relevant to measure, monitor, or manage for persistence or stability in this way? Please rank all options that you consider relevant, with 1 indicating the most relevant for measuring, monitoring, or managing for persistence or stability.",Metacommunity response diversity (among communities in space)
+Q11_16,"Considering the same example as above, at what biological scale(s) might you consider response diversity to be most relevant to measure, monitor, or manage for persistence or stability in this way? Please rank all options that you consider relevant, with 1 indicating the most relevant for measuring, monitoring, or managing for persistence or stability.",Other (please describe)
+Q11b_1,How confident are you in your above answer? ,NA
+Q12,Do you think you might measure / analyse what you consider to be response diversity in the future?,NA
+Q13_9,"What (if anything) do you see as the main challenge(s) facing studies of response diversity? Please rank all options that you consider to be challenges, with 1 indicating the largest challenge",None of the other answers capture the main challenges
+Q13_10,"What (if anything) do you see as the main challenge(s) facing studies of response diversity? Please rank all options that you consider to be challenges, with 1 indicating the largest challenge","Complexity introduced by the inclusion of ecological interactions (e.g., predation, competition) in response diversity research"
+Q13_11,"What (if anything) do you see as the main challenge(s) facing studies of response diversity? Please rank all options that you consider to be challenges, with 1 indicating the largest challenge",Confusion / lack of clarity / tautology in the definition and aims of response diversity
+Q13_12,"What (if anything) do you see as the main challenge(s) facing studies of response diversity? Please rank all options that you consider to be challenges, with 1 indicating the largest challenge",Interacting disturbances in natural systems (multiple stressors)
+Q13_13,"What (if anything) do you see as the main challenge(s) facing studies of response diversity? Please rank all options that you consider to be challenges, with 1 indicating the largest challenge",Lack of a standardised methodology for analyses
+Q13_14,"What (if anything) do you see as the main challenge(s) facing studies of response diversity? Please rank all options that you consider to be challenges, with 1 indicating the largest challenge",Lack of a standardised methodology for experiments
+Q13_15,"What (if anything) do you see as the main challenge(s) facing studies of response diversity? Please rank all options that you consider to be challenges, with 1 indicating the largest challenge",Limited data availability
+Q13_16,"What (if anything) do you see as the main challenge(s) facing studies of response diversity? Please rank all options that you consider to be challenges, with 1 indicating the largest challenge",Other (please describe)
+Q14,"Do you think there needs to be a standardised methodology for conducting response diversity studies, and why?",NA
+Q15,Are you aware of a standardised methodology for conducting response diversity studies?,NA
+Q15b,"If you are aware of a standardised methodology for conducting response diversity studies, please provide a DOI or link to an example publication using this method, or please briefly describe the method.",NA
+Q16_1,"What (if anything) would you like to see as the outcome(s) of any global collaborative efforts on response diversity? Please rank all options, with 1 being your most preferred outcome of any future global collaborative efforts",Meta-analysis / synthesis of existing data
+Q16_2,"What (if anything) would you like to see as the outcome(s) of any global collaborative efforts on response diversity? Please rank all options, with 1 being your most preferred outcome of any future global collaborative efforts",Organised workshops (either standalone or at existing conferences)
+Q16_3,"What (if anything) would you like to see as the outcome(s) of any global collaborative efforts on response diversity? Please rank all options, with 1 being your most preferred outcome of any future global collaborative efforts",Collaborative grant writing
+Q16_4,"What (if anything) would you like to see as the outcome(s) of any global collaborative efforts on response diversity? Please rank all options, with 1 being your most preferred outcome of any future global collaborative efforts",Establishing a globally-distributed network of experiments (similar to e.g. NutNet)
+Q16_5,"What (if anything) would you like to see as the outcome(s) of any global collaborative efforts on response diversity? Please rank all options, with 1 being your most preferred outcome of any future global collaborative efforts",Comprehensive literature review
+Q16_6,"What (if anything) would you like to see as the outcome(s) of any global collaborative efforts on response diversity? Please rank all options, with 1 being your most preferred outcome of any future global collaborative efforts",Methods standardisation (e.g. establishing guidelines or development of new methods)
+Q16_7,"What (if anything) would you like to see as the outcome(s) of any global collaborative efforts on response diversity? Please rank all options, with 1 being your most preferred outcome of any future global collaborative efforts",Promoting the inclusion of response diversity in biodiversity observation and monitoring
+Q16_8,"What (if anything) would you like to see as the outcome(s) of any global collaborative efforts on response diversity? Please rank all options, with 1 being your most preferred outcome of any future global collaborative efforts",Promoting the inclusion of response diversity in decision making and policy settings
+Q16_9,"What (if anything) would you like to see as the outcome(s) of any global collaborative efforts on response diversity? Please rank all options, with 1 being your most preferred outcome of any future global collaborative efforts",Other (please describe)
+Q16_9_TEXT,"What (if anything) would you like to see as the outcome(s) of any global collaborative efforts on response diversity? Please rank all options, with 1 being your most preferred outcome of any future global collaborative efforts",Other (please describe)
+Q17_1,What is your current career stage? Please choose whichever best describes your current state,Student or recent PhD graduate (1-2 years)
+Q17_2,What is your current career stage? Please choose whichever best describes your current state,2-5 years post-PhD or equivalent experience
+Q17_3,What is your current career stage? Please choose whichever best describes your current state,5-10 years post-PhD or equivalent experience
+Q17_4,What is your current career stage? Please choose whichever best describes your current state,10+ years post-PhD or equivalent experience
+Q18,In which continent are you currently based?,NA
+Q19_1,Which of these options (if any) best describes your area of specialism / expertise? You may select multiple options,Community ecology
+Q19_2,Which of these options (if any) best describes your area of specialism / expertise? You may select multiple options,Population ecology
+Q19_3,Which of these options (if any) best describes your area of specialism / expertise? You may select multiple options,Ecosystem ecology
+Q19_4,Which of these options (if any) best describes your area of specialism / expertise? You may select multiple options,Biogeography / macroecology
+Q19_5,Which of these options (if any) best describes your area of specialism / expertise? You may select multiple options,Theoretical / mathematical ecology
+Q19_6,Which of these options (if any) best describes your area of specialism / expertise? You may select multiple options,Evolutionary biology
+Q19_7,Which of these options (if any) best describes your area of specialism / expertise? You may select multiple options,Socioecology or social sciences

@@ -1,0 +1,318 @@
+with(RD.dataset,colSums(cbind(Q4_1, Q4_3, Q4_2, Q4_4, Q4_5), na.rm = TRUE))
+RD.dataset$Q4_6_TEXT
+RD.dataset$Q7
+RD.dataset$Q7_12
+table(with(RD.dataset, cbind(Q7_12, Q7_13, Q7_14, Q7_15, Q7_16, Q7_17, Q7_18, Q7_19, Q7_20, Q7_22)))
+table(with(RD.dataset, cbind(Q7_12, Q7_13, Q7_14, Q7_15, Q7_16, Q7_17, Q7_18, Q7_19, Q7_20, Q7_21)))
+with(RD.dataset, colSums(cbind(Q7_12, Q7_13, Q7_14, Q7_15, Q7_16, Q7_17, Q7_18, Q7_19, Q7_20, Q7_21), na.rm = TRUE))
+sum(with(RD.dataset, colSums(cbind(Q7_12, Q7_13, Q7_14, Q7_15, Q7_16, Q7_17, Q7_18, Q7_19, Q7_20, Q7_21), na.rm = TRUE)))
+barplot(Q7_bar, names.arg = c("None", "Maintenance of ecological\nproperties over time/n& envtal. change", "Maintained Delivery of Ecosys.\nService over time\n& Envtal. Change", "Temporal variability\nof ecological property", "Temporal (a)synchrony", "Spatial Distribution of\nSpecies/Popns/Genes", "Spatial (a)synchrony", "Reactivity", "Engineering Resilience", "Ecological Resilience"), ylab = "Frequency", axis.lty = 1, las = 2)
+Q7_bar <- with(RD.dataset, colSums(cbind(Q7_12, Q7_13, Q7_14, Q7_15, Q7_16, Q7_17, Q7_18, Q7_19, Q7_20, Q7_21), na.rm = TRUE))
+barplot(Q7_bar, names.arg = c("None", "Maintenance of ecological\nproperties over time/n& envtal. change", "Maintained Delivery of Ecosys.\nService over time\n& Envtal. Change", "Temporal variability\nof ecological property", "Temporal (a)synchrony", "Spatial Distribution of\nSpecies/Popns/Genes", "Spatial (a)synchrony", "Reactivity", "Engineering Resilience", "Ecological Resilience"), ylab = "Frequency", axis.lty = 1, las = 2)
+par(mar = c(10.1, 4.1, 4.1, 2.1))#
+barplot(Q7_bar, names.arg = c("None", "Maintenance of ecological\nproperties over time/n& envtal. change", "Maintained Delivery of Ecosys.\nService over time\n& Envtal. Change", "Temporal variability\nof ecological property", "Temporal (a)synchrony", "Spatial Distribution of\nSpecies/Popns/Genes", "Spatial (a)synchrony", "Reactivity", "Engineering Resilience", "Ecological Resilience"), ylab = "Frequency", axis.lty = 1, las = 2)
+barplot(Q7_bar, names.arg = c("None", "Maintenance of ecol.\nproperties over time\n& envtal. change", "Maintained Delivery of Ecosys.\nService over time\n& Envtal. Change", "Temporal variability\nof ecological property", "Temporal (a)synchrony", "Spatial Distribution of\nSpecies/Popns/Genes", "Spatial (a)synchrony", "Reactivity", "Engineering Resilience", "Ecological Resilience"), ylab = "Frequency", axis.lty = 1, las = 2)
+barplot(Q7_bar, ylim = c(0,50), names.arg = c("None", "Maintenance of ecol.\nproperties over time\n& envtal. change", "Maintained Delivery of Ecosys.\nService over time\n& Envtal. Change", "Temporal variability\nof ecological property", "Temporal (a)synchrony", "Spatial Distribution of\nSpecies/Popns/Genes", "Spatial (a)synchrony", "Reactivity", "Engineering Resilience", "Ecological Resilience"), ylab = "Frequency", axis.lty = 1, las = 2)
+barplot(Q7_bar, ylim = c(0,50), names.arg = c("None", "Maintenance of ecol.\nproperties over time\n& envtal. change", "Maintained Delivery of\nEcosys. Service over\ntime & Envtal. Change", "Temporal variability\nof ecological property", "Temporal (a)synchrony", "Spatial Distribution of\nSpecies/Popns/Genes", "Spatial (a)synchrony", "Reactivity", "Engineering Resilience", "Ecological Resilience"), ylab = "Frequency", axis.lty = 1, las = 2)
+Q7_bar
+par(mar = c(10.1, 4.1, 4.1, 2.1))#
+barplot(Q7_bar[-1], ylim = c(0,50), names.arg = c("Maintenance of ecol.\nproperties over time\n& envtal. change", "Maintained Delivery of\nEcosys. Service over\ntime & Envtal. Change", "Temporal variability\nof ecological property", "Temporal (a)synchrony", "Spatial Distribution of\nSpecies/Popns/Genes", "Spatial (a)synchrony", "Reactivity", "Engineering Resilience", "Ecological Resilience"), ylab = "Frequency", axis.lty = 1, las = 2)
+par(mar = c(10.1, 4.1, 4.1, 2.1))#
+barplot(Q7_bar[-1], ylim = c(0,50), names.arg = c("Maintenance of ecol.\nproperties over time\n& envtal. change", "Maintained Delivery of\nEcosys. Service over\ntime & Envtal. Change", "Temporal variability\nof ecological property", "Temporal (a)synchrony", "Spatial Distribution of\nSpecies/Popns/Genes", "Spatial (a)synchrony", "Reactivity", "Engineering Resilience", "Ecological Resilience"), ylab = "Frequency", axis.lty = 1, las = 2)
+sum(Q7_bar[-1])
+prop.test(Q7_bar[-1], sum(Q7_bar[-1]))
+prop.test(Q7_bar[-1], rep(sum(Q7_bar[-1]),8))
+Q7_bar[-1]
+prop.test(Q7_bar[-1], rep(sum(Q7_bar[-1]),9))
+Q7_n_defs <- with(RD.dataset, rowSums(cbind(Q7_13, Q7_14, Q7_15, Q7_16, Q7_17, Q7_18, Q7_19, Q7_20, Q7_21), na.rm = TRUE))
+Q7_n_defs
+hist(Q7_n_defs)
+table(Q7_n_defs)
+which(Q7_n_defs==0)
+RD.dataset$Participant_ID[which(Q7_n_defs==0)]
+table(Q7_n_defs)
+sum(table(Q7_n_defs))
+Q7_bar
+sum(RD.dataset$Q7_12)
+which(RD.dataset$Q7_12==1)
+Q7_n_defs
+table(Q7_n_defs)
+barplot(table(Q7_n_defs), xlab = "Number of descriptions selected")
+barplot(table(Q7_n_defs), xlab = "Number of descriptions selected", ylab = "Frequency", axis.lty = 1)
+barplot(table(Q7_n_defs), ylim = c(0,15), xlab = "Number of descriptions selected", ylab = "Frequency", axis.lty = 1)
+barplot(table(Q7_n_defs), ylim = c(0,12), xlab = "Number of descriptions selected", ylab = "Frequency", axis.lty = 1)
+par(mar = c(10.1, 4.1, 4.1, 2.1))#
+barplot(Q7_bar[-1], ylim = c(0,50), names.arg = c("Maintenance of ecol.\nproperties over time\n& envtal. change", "Maintained Delivery of\nEcosys. Service over\ntime & Envtal. Change", "Temporal variability\nof ecological property", "Temporal (a)synchrony", "Spatial Distribution of\nSpecies/Popns/Genes", "Spatial (a)synchrony", "Reactivity", "Engineering Resilience", "Ecological Resilience"), ylab = "Frequency", axis.lty = 1, las = 2)
+barplot(table(Q7_n_defs), ylim = c(0,12), xlab = "Number of descriptions selected", ylab = "Frequency", axis.lty = 1)
+par(mar = c(5.1, 4.1, 4.1, 2.1))#
+barplot(table(Q7_n_defs), ylim = c(0,12), xlab = "Number of descriptions selected", ylab = "Frequency", axis.lty = 1)
+Q6_bar <- with(RD.dataset, colSums(cbind(Q6_1, Q6_2, Q6_3, Q6_4), na.rm = TRUE))
+Q6_bar <- with(RD.dataset, colSums(cbind(Q6_1, Q6_2, Q6_3), na.rm = TRUE))
+Q6_bar
+sum(Q6_bar)
+prop.test(Q6_par, rep(112,3))
+prop.test(Q6_bar, rep(112,3))
+with(RD.dataset, rowSums(cbind(Q6_1, Q6_2, Q6_3), na.rm = TRUE))
+sum(with(RD.dataset, rowSums(cbind(Q6_1, Q6_2, Q6_3), na.rm = TRUE)))
+table(with(RD.dataset, rowSums(cbind(Q6_1, Q6_2, Q6_3), na.rm = TRUE)))
+sum(table(with(RD.dataset, rowSums(cbind(Q6_1, Q6_2, Q6_3), na.rm = TRUE))))
+table(with(RD.dataset, rowSums(cbind(Q6_1, Q6_2, Q6_3), na.rm = TRUE)))
+table(RD.dataset$Q9)
+RD.dataset$Q9
+table(RD.dataset$Q9_1)
+sum(table(RD.dataset$Q9_1))
+table(RD.dataset$Q9b_1)
+plot(RD.dataset$Q9_1, RD.dataset$Q9b_1, pch = "16", xlab = "Temporal/Spatial Scale", ylab = "Confidence")
+plot(RD.dataset$Q9_1, RD.dataset$Q9b_1, pch = 16, xlab = "Temporal/Spatial Scale", ylab = "Confidence")
+points(RD.dataset$Q10_1, RD.dataset$Q10b_1, pch = 16, col = "viridis")
+if (!"viridis" %in% installed.packages())#
+  install.packages("viridis")
+library('viridis')
+viridis
+viridis(1)
+viridis(95)
+viridis[95]
+viridis(95)[95]
+plot(RD.dataset$Q9_1, RD.dataset$Q9b_1, pch = 16, col = viridis(95)[50], xlab = "Temporal/Spatial Scale", ylab = "Confidence")#
+points(RD.dataset$Q10_1, RD.dataset$Q10b_1, pch = 16, col = viridis(95)[50])
+points(RD.dataset$Q10_1, RD.dataset$Q10b_1, pch = 16, col = viridis(95)[95])
+points(RD.dataset$Q10_1, RD.dataset$Q10b_1, pch = 16, col = viridis(95)[1])
+points(RD.dataset$Q10_1, RD.dataset$Q10b_1, pch = 16, col = viridis()[1])
+points(RD.dataset$Q10_1, RD.dataset$Q10b_1, pch = 16, col = viridis(100)[1])
+plot(RD.dataset$Q9_1, RD.dataset$Q9b_1, pch = 16, col = viridis(100)[50], xlab = "Temporal/Spatial Scale", ylab = "Confidence")#
+points(RD.dataset$Q10_1, RD.dataset$Q10b_1, pch = 16, col = viridis(100)[1])
+legend('topleft', pch = 16, col = viridis(100)[c(50, 100)], c("Temporal", "Spatial"))
+legend('topleft', pch = 16, col = viridis(100)[c(50, 1], c("Temporal", "Spatial"))
+legend('topleft', pch = 16, col = viridis(100)[c(50, 1)], c("Temporal", "Spatial"))
+cor.test(RD.dataset$Q9_1, RD.dataset$Q10_1)
+cor.test(RD.dataset$Q9_1, RD.dataset$Q10_1, method = "spearman")
+cor.test(RD.dataset$Q9b_1, RD.dataset$Q10b_1, method = "spearman")
+table(RD.dataset$Q9_1)
+hist(table(RD.dataset$Q9_1))
+hist(RD.dataset$Q9_1)
+hist(RD.dataset$Q9_1, xlab = "Temporal Scale relevant to RD")
+hist(RD.dataset$Q9_1, xlab = "Temporal Scale relevant to RD", main = "")
+hist(RD.dataset$Q9b_1, xlab = "Confidence in Temporal Scale relevant to RD", main = "")
+par(mfrow = c(2,1)) #
+hist(RD.dataset$Q9_1, xlab = "Temporal Scale relevant to RD", main = "")#
+hist(RD.dataset$Q9b_1, xlab = "Confidence in Temporal Scale relevant to RD", main = "")
+hist(RD.dataset$Q9_1, ylim = c(0,25), xlab = "Temporal Scale relevant to RD", main = "")
+hist(RD.dataset$Q9b_1, xlab = "Confidence in Temporal Scale relevant to RD", main = "")
+hist(RD.dataset$Q10_1, ylim = c(0,25), xlab = "Spatial Scale relevant to RD", main = "")#
+hist(RD.dataset$Q10b_1, xlab = "Confidence in Spatial Scale relevant to RD", main = "")
+hist(RD.dataset$Q10_1, ylim = c(0,30), xlab = "Spatial Scale relevant to RD", main = "")#
+hist(RD.dataset$Q10b_1, xlab = "Confidence in Spatial Scale relevant to RD", main = "")
+hist(RD.dataset$Q10_1, ylim = c(0,35), xlab = "Spatial Scale relevant to RD", main = "")#
+hist(RD.dataset$Q10b_1, xlab = "Confidence in Spatial Scale relevant to RD", main = "")
+arrows(0,35,0,35)
+arrows(10,35,90,35, length = 0.1)
+par(mfrow = c(2,1)) #
+hist(RD.dataset$Q9_1, ylim = c(0,25), xlab = "Temporal Scale relevant to RD", main = "")#
+arrows(10,35,90,35, length = 0.1, angle = 30, code = 3)#
+hist(RD.dataset$Q9b_1, xlab = "Confidence in Temporal Scale relevant to RD", main = "")
+hist(RD.dataset$Q9_1, ylim = c(0,25), xlab = "Temporal Scale relevant to RD", main = "")#
+arrows(10,25,90,25, length = 0.1, angle = 30, code = 3)
+?text
+par(mfrow = c(2,1)) #
+hist(RD.dataset$Q9_1, ylim = c(0,25), xlab = "Temporal Scale relevant to RD", main = "")#
+arrows(10,25,90,25, length = 0.1, angle = 30, code = 3)#
+text(c(5,95), 20, labels = c("≤ minutes", "≥ decades"))#
+hist(RD.dataset$Q9b_1, xlab = "Confidence in Temporal Scale relevant to RD", main = "")
+hist(RD.dataset$Q9_1, ylim = c(0,25), xlab = "Temporal Scale relevant to RD", main = "")#
+arrows(5,25,95,25, length = 0.1, angle = 30, code = 3)#
+text(c(5,95), 20, labels = c("≤ minutes", "≥ decades"))#
+hist(RD.dataset$Q9b_1, xlab = "Confidence in Temporal Scale relevant to RD", main = "")
+hist(RD.dataset$Q9_1, ylim = c(0,25), xlab = "Temporal Scale relevant to RD", main = "")#
+arrows(5,25,95,25, length = 0.1, angle = 30, code = 3)#
+text(c(5,95), 22, labels = c("≤ minutes", "≥ decades"))#
+hist(RD.dataset$Q9b_1, xlab = "Confidence in Temporal Scale relevant to RD", main = "")
+hist(RD.dataset$Q10_1, ylim = c(0,35), xlab = "Spatial Scale relevant to RD", main = "")#
+arrows(5,35,95,35, length = 0.1, angle = 30, code = 3)#
+text(c(5,95), 32, labels = c("≤ minutes", "≥ decades"))#
+hist(RD.dataset$Q10b_1, xlab = "Confidence in Spatial Scale relevant to RD", main = "")
+hist(RD.dataset$Q10_1, xlim = c(0,100), ylim = c(0,35), xlab = "Spatial Scale relevant to RD", main = "")#
+arrows(5,35,95,35, length = 0.1, angle = 30, code = 3)#
+text(c(5,95), 32, labels = c("≤ minutes", "≥ decades"))#
+hist(RD.dataset$Q10b_1, xlab = "Confidence in Spatial Scale relevant to RD", main = "")
+hist(RD.dataset$Q10_1, xlim = c(0,100), ylim = c(0,35), xlab = "Spatial Scale relevant to RD", main = "")#
+arrows(5,35,95,35, length = 0.1, angle = 30, code = 3)#
+text(c(5,95), 31, labels = c("microhabitats", "≥ multiregional"))#
+hist(RD.dataset$Q10b_1, xlab = "Confidence in Spatial Scale relevant to RD", main = "")
+hist(RD.dataset$Q10_1, xlim = c(0,100), ylim = c(0,35), xlab = "Spatial Scale relevant to RD", main = "")#
+arrows(5,35,95,35, length = 0.1, angle = 30, code = 3)#
+text(c(8,92), 31, labels = c("microhabitats", "≥ multiregional"))#
+hist(RD.dataset$Q10b_1, xlab = "Confidence in Spatial Scale relevant to RD", main = "")
+par(mfrow = c(2,1)) #
+hist(RD.dataset$Q9_1, ylim = c(0,25), xlab = "Temporal Scale relevant to RD", main = "")#
+arrows(5,25,95,25, length = 0.1, angle = 30, code = 3)#
+text(c(5,95), 22, labels = c("≤ minutes", "≥ decades"))#
+hist(RD.dataset$Q9b_1, xlab = "Confidence in Temporal Scale relevant to RD", main = "")
+par(mfrow = c(2,1)) #
+hist(RD.dataset$Q9_1, ylim = c(0,25), xlab = "Temporal Scale relevant to RD", main = "", col = viridis(100)[50])#
+arrows(5,25,95,25, length = 0.1, angle = 30, code = 3)#
+text(c(5,95), 22, labels = c("≤ minutes", "≥ decades"))#
+hist(RD.dataset$Q9b_1, xlab = "Confidence in Temporal Scale relevant to RD", main = ""col = viridis(100)[50])
+hist(RD.dataset$Q9b_1, xlab = "Confidence in Temporal Scale relevant to RD", main = "", col = viridis(100)[50])
+par(mfrow = c(2,1)) #
+hist(RD.dataset$Q10_1, xlim = c(0,100), ylim = c(0,35), xlab = "Spatial Scale relevant to RD", main = "", col = viridis(100)[1])#
+arrows(5,35,95,35, length = 0.1, angle = 30, code = 3)#
+text(c(8,92), 31, labels = c("microhabitats", "≥ multiregional"))#
+hist(RD.dataset$Q10b_1, xlab = "Confidence in Spatial Scale relevant to RD", main = "", col = viridis(100)[1])
+summary(Q9_1)
+summary(RD.dataset$Q9_1)
+summary(RD.dataset$Q9b_1)
+cor.test(RD.dataset$Q9_1, RD.dataset$Qb_1, method = "spearman")
+cor.test(RD.dataset$Q9_1, RD.dataset$Q9b_1, method = "spearman")
+length(RD.dataset$Q9_1)
+sum(is.na(RD.dataset$Q9_1))
+sum(is.na(RD.dataset$Q9b_1))
+which(is.na(RD.dataset$Q9b_1))
+which(is.na(RD.dataset$Q9_1))
+plot(RD.dataset$Q9_1, RD.dataset$Q9b_1, pch = 16, col = viridis(100)[50], xlab = "Temporal/Spatial Scale", ylab = "Confidence")#
+points(RD.dataset$Q10_1, RD.dataset$Q10b_1, pch = 16, col = viridis(100)[1])#
+legend('topleft', pch = 16, col = viridis(100)[c(50, 1)], c("Temporal", "Spatial"))
+plot(RD.dataset$Q9_1, RD.dataset$Q9b_1, pch = 16, col = viridis(100)[50], xlab = "Temporal/Spatial Scale", ylab = "Confidence")#
+points(RD.dataset$Q10_1, RD.dataset$Q10b_1, pch = 16, col = viridis(100)[1])#
+legend('topleft', pch = 16, col = viridis(100)[c(50, 1)], c("Temporal", "Spatial"))
+summary(RD.dataset$Q10_1)
+summary(RD.dataset$Q10b_1)
+cor.test(RD.dataset$Q10_1, RD.dataset$Q10b_1, method = "spearman")
+sum(is.na(RD.dataset$Q10_1))
+sum(is.na(RD.dataset$Q10b_1))
+length(is.na(RD.dataset$Q10b_1))
+cor.test(RD.dataset$Q9_1, RD.dataset$Q10_1, method = "spearman")
+cor.test(RD.dataset$Q9_1, RD.dataset$Q9b_1, method = "spearman")
+cor.test(RD.dataset$Q9b_1, RD.dataset$Q10b_1, method = "spearman")
+cor.test(RD.dataset$Q10_1, RD.dataset$Q10b_1, method = "spearman")
+cor.test(RD.dataset$Q9_1, RD.dataset$Q10_1, method = "spearman")
+cor.test(RD.dataset$Q9b_1, RD.dataset$Q10b_1, method = "spearman")
+cor.test(RD.dataset$Q9_1, RD.dataset$Q9b_1, method = "spearman")
+cor.test(RD.dataset$Q9_1, RD.dataset$Q10_1, method = "spearman")
+sum(is.na(RD.dataset£Q9_1))
+sum(is.na(RD.dataset$Q9_1))
+sum(is.na(RD.dataset$Q10_1))
+sum(is.na(RD.dataset$Q10b_1))
+sum(is.na(RD.dataset$Q9b_1))
+which(is.na(RD.dataset$Q9b_1))
+which(is.na(RD.dataset$Q10b_1))
+table(with(RD.dataset, cbind(Q11_9, Q11_10, Q11_11, Q11_12, Q11_13, Q11_14, Q11_15, Q11_16)))
+summary(with(RD.dataset, cbind(Q11_9, Q11_10, Q11_11, Q11_12, Q11_13, Q11_14, Q11_15, Q11_16)))
+kruskal.test(with(RD.dataset, cbind(Q11_9, Q11_10, Q11_11, Q11_12, Q11_13, Q11_14, Q11_15, Q11_16)))
+?kruskal.test
+LETTERS[1:8]
+rep(LETTERS[1:8], times = 8)
+rep(LETTERS[1:8], each = 8)
+kruskal.test(with(RD.dataset, c(Q11_9, Q11_10, Q11_11, Q11_12, Q11_13, Q11_14, Q11_15, Q11_16)), rep(LETTERS[1:8], each = 69))
+kruskal.test(with(RD.dataset, c(Q11_9, Q11_10, Q11_11, Q11_12, Q11_13, Q11_14, Q11_15, Q11_16)) ~ rep(LETTERS[1:8], each = 69))
+install.packages('FSA')
+FSA::dunnTest(with(RD.dataset, c(Q11_9, Q11_10, Q11_11, Q11_12, Q11_13, Q11_14, Q11_15, Q11_16)) ~ rep(LETTERS[1:8], each = 69), method = "bh")
+boxplot(with(RD.dataset, c(Q11_9, Q11_10, Q11_11, Q11_12, Q11_13, Q11_14, Q11_15, Q11_16)))
+boxplot(with(RD.dataset, cbind(Q11_9, Q11_10, Q11_11, Q11_12, Q11_13, Q11_14, Q11_15, Q11_16)))
+boxplot(with(RD.dataset, cbind(Q11_9, Q11_10, Q11_11, Q11_12, Q11_13, Q11_14, Q11_15, Q11_16)), names.arg = c("None", "Genetic (within pop)", "Metapopulation"), las = 2)
+boxplot(with(RD.dataset, cbind(Q11_9, Q11_10, Q11_11, Q11_12, Q11_13, Q11_14, Q11_15, Q11_16)), names = c("None", "Genetic (within pop)", "Metapopulation"), las = 2)
+boxplot(with(RD.dataset, cbind(Q11_9, Q11_10, Q11_11, Q11_12, Q11_13, Q11_14, Q11_15, Q11_16)), names = c("None", "Genetic\n(within pop)", "Metapopulation", "Interspecific", "Within Functional\nGroup", "Among Functional\nGroups", "Metacommunity", "Other"), xlab = "Relevant Biological Scale for RD", ylab = "Rank" las = 2)
+boxplot(with(RD.dataset, cbind(Q11_9, Q11_10, Q11_11, Q11_12, Q11_13, Q11_14, Q11_15, Q11_16)), names = c("None", "Genetic\n(within pop)", "Metapopulation", "Interspecific", "Within Functional\nGroup", "Among Functional\nGroups", "Metacommunity", "Other"), xlab = "Relevant Biological Scale for RD", ylab = "Rank" las = 2)
+boxplot(with(RD.dataset, cbind(Q11_9, Q11_10, Q11_11, Q11_12, Q11_13, Q11_14, Q11_15, Q11_16)), names = c("None", "Genetic\n(within pop)", "Metapopulation", "Interspecific", "Within Functional\nGroup", "Among Functional\nGroups", "Metacommunity", "Other"), xlab = "Relevant Biological Scale for RD", ylab = "Rank", las = 2)
+par(mar = c(10.5, 4.1, 4.1, 2.1))#
+boxplot(with(RD.dataset, cbind(Q11_9, Q11_10, Q11_11, Q11_12, Q11_13, Q11_14, Q11_15, Q11_16)), names = c("None", "Genetic\n(within pop)", "Metapopulation", "Interspecific", "Within Functional\nGroup", "Among Functional\nGroups", "Metacommunity", "Other"), xlab = "Relevant Biological Scale for RD", ylab = "Rank", las = 2)
+boxplot(with(RD.dataset, cbind(Q11_9, Q11_10, Q11_11, Q11_12, Q11_13, Q11_14, Q11_15, Q11_16)), names = c("None", "Genetic\n(within pop)", "Metapopulation", "Interspecific", "Within Functional\nGroup", "Among Functional\nGroups", "Metacommunity", "Other"), xlab = "Relevant Biological Scale for RD", ylab = "Rank", col = viridis(100)[50], las = 2)
+boxplot(with(RD.dataset, cbind(Q11_9, Q11_10, Q11_11, Q11_12, Q11_13, Q11_14, Q11_15, Q11_16)), names = c("None", "Genetic\n(within pop)", "Metapopulation", "Interspecific", "Within Functional\nGroup", "Among Functional\nGroups", "Metacommunity", "Other"), xlab = "Relevant Biological Scale for RD", ylab = "Rank", col = viridis(100)[75], las = 2)
+boxplot(with(RD.dataset, cbind(Q11_9, Q11_10, Q11_11, Q11_12, Q11_13, Q11_14, Q11_15, Q11_16)), names = c("None", "Genetic\n(within pop)", "Metapopulation", "Interspecific", "Within Functional\nGroup", "Among Functional\nGroups", "Metacommunity", "Other"), xlab = "Relevant Biological Scale for RD", ylab = "Rank", col = viridis(100)[25], las = 2)
+boxplot(with(RD.dataset, cbind(Q11_9, Q11_10, Q11_11, Q11_12, Q11_13, Q11_14, Q11_15, Q11_16)), names = c("None", "Genetic\n(within pop)", "Metapopulation", "Interspecific", "Within Functional\nGroup", "Among Functional\nGroups", "Metacommunity", "Other"), xlab = "Relevant Biological Scale for RD", ylab = "Rank", col = viridis(100)[25], las = 2)
+boxplot(with(RD.dataset, cbind(Q11_9, Q11_10, Q11_11, Q11_12, Q11_13, Q11_14, Q11_15, Q11_16)), names = c("None", "Genetic\n(within pop)", "Metapopulation", "Interspecific", "Within Functional\nGroup", "Among Functional\nGroups", "Metacommunity", "Other"), xlab = "Relevant Biological Scale for RD", ylab = "Rank", col = viridis(100)[25], las = 2)
+par(mar = c(10.5, 4.1, 4.1, 2.1))#
+boxplot(with(RD.dataset, cbind(Q11_9, Q11_10, Q11_11, Q11_12, Q11_13, Q11_14, Q11_15, Q11_16)), names = c("None", "Genetic\n(within pop)", "Metapopulation", "Interspecific", "Within Functional\nGroup", "Among Functional\nGroups", "Metacommunity", "Other"), ylab = "Rank", col = viridis(100)[25], las = 2)#
+title(xlab = "Relevant Biological Scale for RD", line = 10)
+title(xlab = "Relevant Biological Scale for RD", line = 8)
+boxplot(with(RD.dataset, cbind(Q11_9, Q11_10, Q11_11, Q11_12, Q11_13, Q11_14, Q11_15, Q11_16)), names = c("None", "Genetic\n(within pop)", "Metapopulation", "Interspecific", "Within Functional\nGroup", "Among Functional\nGroups", "Metacommunity", "Other"), ylim = c(8,1), ylab = "Rank", col = viridis(100)[25], las = 2)
+title(xlab = "Relevant Biological Scale for RD", line = 8)
+boxplot(with(RD.dataset, cbind(Q11_9, Q11_10, Q11_11, Q11_12, Q11_13, Q11_14, Q11_15, Q11_16)), names = c("None", "Genetic\n(within popn.)", "Metapopulation", "Interspecific", "Within\nFunctional Group", "Among\nFunctional Groups", "Metacommunity", "Other"), ylim = c(8,1), ylab = "Rank", col = viridis(100)[25], las = 2)
+title(xlab = "Relevant Biological Scale for RD", line = 8)
+FSA::dunnTest(with(RD.dataset, c(Q11_10, Q11_11, Q11_12, Q11_13, Q11_14, Q11_15)) ~ rep(LETTERS[1:6], each = 69), method = "bh")
+kruskal.test(with(RD.dataset, c(Q11_10, Q11_11, Q11_12, Q11_13, Q11_14, Q11_15)) ~ rep(LETTERS[1:6], each = 69))
+kruskal.test(with(RD.dataset, c(Q11_9, Q11_10, Q11_11, Q11_12, Q11_13, Q11_14, Q11_15, Q11_16)) ~ rep(LETTERS[1:8], each = 69))
+FSA::dunnTest(with(RD.dataset, c(Q11_9, Q11_10, Q11_11, Q11_12, Q11_13, Q11_14, Q11_15, Q11_16)) ~ rep(LETTERS[1:8], each = 69), method = "bh")
+9.7e-02
+FSA::dunnTest(with(RD.dataset, c(Q11_10, Q11_11, Q11_12, Q11_13, Q11_14, Q11_15)) ~ rep(LETTERS[1:6], each = 69), method = "bh")
+table(RD.dataset$Q12)
+summary(with(RD.dataset, cbind(Q13_9, Q13_10, Q13_11, Q13_12, Q13_13, Q13_14, Q13_15, Q13_16)))
+boxplot(with(RD.dataset, cbind(boxplot(with(RD.dataset, cbind(Q13_9, Q13_10, Q13_11, Q13_12, Q13_13, Q13_14, Q13_15, Q13_16), names = c("None", "Complexity arising from\nEcological Interactions", "Unclear definitions/Aims\in RD Research", "Multiple Stressors", "No Standardised\nMethodology for Analyses", "No Standardised\nMethodology for Experiments", "Data Limitations", "Other"), ylim = c(8,1), ylab = "Rank", col = viridis(100)[25], las = 2)
+boxplot(with(RD.dataset, cbind(boxplot(with(RD.dataset, cbind(Q13_9, Q13_10, Q13_11, Q13_12, Q13_13, Q13_14, Q13_15, Q13_16), names = c("None", "Complexity arising from\nEcological Interactions", "Unclear definitions/Aims\nin RD Research", "Multiple Stressors", "No Standardised\nMethodology for Analyses", "No Standardised\nMethodology for Experiments", "Data Limitations", "Other"), ylim = c(8,1), ylab = "Rank", col = viridis(100)[25], las = 2)
+title(xlab = "Future Challenges for RD", line = 8)
+boxplot(with(RD.dataset, cbind(Q13_9, Q13_10, Q13_11, Q13_12, Q13_13, Q13_14, Q13_15, Q13_16), names = c("None", "Complexity arising from\nEcological Interactions", "Unclear definitions/Aims\nin RD Research", "Multiple Stressors", "No Standardised\nMethodology for Analyses", "No Standardised\nMethodology for Experiments", "Data Limitations", "Other"), ylim = c(8,1), ylab = "Rank", col = viridis(100)[25], las = 2)
+title(xlab = "Future Challenges for RD", line = 8)
+boxplot(with(RD.dataset, cbind(Q13_9, Q13_10, Q13_11, Q13_12, Q13_13, Q13_14, Q13_15, Q13_16)), names = c("None", "Complexity arising from\nEcological Interactions", "Unclear definitions/Aims\nin RD Research", "Multiple Stressors", "No Standardised\nMethodology for Analyses", "No Standardised\nMethodology for Experiments", "Data Limitations", "Other"), ylim = c(8,1), ylab = "Rank", col = viridis(100)[25], las = 2)
+title(xlab = "Future Challenges for RD", line = 8)
+boxplot(with(RD.dataset, cbind(Q13_9, Q13_10, Q13_11, Q13_12, Q13_13, Q13_14, Q13_15, Q13_16)), names = c("None", "Complexity from\nEcolog. Interactions", "Unclear\ndefinitions/Aims", "Multiple Stressors", "No Standardised\nMethodology for Analyses", "No Standardised\nMethodology for Experiments", "Data Limitations", "Other"), ylim = c(8,1), ylab = "Rank", col = viridis(100)[25], las = 2)
+title(xlab = "Future Challenges for RD", line = 8)
+boxplot(with(RD.dataset, cbind(Q13_9, Q13_10, Q13_11, Q13_12, Q13_13, Q13_14, Q13_15, Q13_16)), names = c("None", "Complexity from\nEcolog. Interactions", "Unclear\ndefinitions/Aims", "Multiple Stressors", "No Standardised\nMethodology for Analyses", "No Standardised\nMethodology\nfor Experiments", "Data Limitations", "Other"), ylim = c(8,1), ylab = "Rank", col = viridis(100)[25], las = 2)
+boxplot(with(RD.dataset, cbind(Q13_9, Q13_10, Q13_11, Q13_12, Q13_13, Q13_14, Q13_15, Q13_16)), names = c("None", "Complexity from\nEcolog. Interactions", "Unclear\ndefinitions/Aims", "Multiple Stressors", "No Standardised\nMethodology\nfor Analyses", "No Standardised\nMethodology\nfor Experiments", "Data Limitations", "Other"), ylim = c(8,1), ylab = "Rank", col = viridis(100)[25], las = 2)
+title(xlab = "Future Challenges for RD", line = 8)
+kruskal.test(with(RD.dataset, c(Q13_9, Q13_10, Q13_11, Q13_12, Q13_13, Q13_14, Q13_15, Q13_16)) ~ rep(LETTERS[1:8], each = 69))
+FSA::dunnTest(with(RD.dataset, c(Q13_9, Q13_10, Q13_11, Q13_12, Q13_13, Q13_14, Q13_15, Q13_16)) ~ rep(LETTERS[1:8], each = 69), method = "bh")
+career.stages
+career.stages <- with(RD.dataset,colSums(cbind(Q17_1,Q17_2,Q17_3,Q17_4), na.rm = TRUE))
+career.stages
+cbind(Q17_1,Q17_2,Q17_3,Q17_4)
+with(RD.dataset,colSums(cbind(Q17_1,Q17_2,Q17_3,Q17_4), na.rm = TRUE))
+which(with(RD.dataset,rowSums(cbind(Q17_1,Q17_2,Q17_3,Q17_4), na.rm = TRUE))==0)
+RD.dataset$Q17_combined <- vector('numeric', length(RD.dataset$Q17_1))#
+RD.dataset$Q17_combined[which(RD.dataset$Q17_1==1)] <- 1	# 'ECR'#
+RD.dataset$Q17_combined[which(RD.dataset$Q17_2==1)] <- 2	# 'Postdoc'#
+RD.dataset$Q17_combined[which(RD.dataset$Q17_3==1)] <- 3	# 'PD.5plus'#
+RD.dataset$Q17_combined[which(RD.dataset$Q17_4==1)] <- 4	# 'PD.10plus'#
+table(RD.dataset$Q17_combined)
+RD.dataset$Q17_combined
+orderedFC <- polr(with(RD.dataset, c(Q13_9, Q13_10, Q13_11, Q13_12, Q13_13, Q13_14, Q13_15, Q13_16)) ~ rep(LETTERS[1:8], each = 69) + rep(RD.dataset$Q17_combined, 8), Hess = TRUE)
+orderedFC <- MASS::polr(with(RD.dataset, c(Q13_9, Q13_10, Q13_11, Q13_12, Q13_13, Q13_14, Q13_15, Q13_16)) ~ rep(LETTERS[1:8], each = 69) + rep(RD.dataset$Q17_combined, 8), Hess = TRUE)
+orderedFC <- MASS::polr(with(RD.dataset, c(Q13_9, Q13_10, Q13_11, Q13_12, Q13_13, Q13_14, Q13_15, Q13_16)) ~ as.factor(rep(LETTERS[1:8], each = 69)) + as.factor(rep(RD.dataset$Q17_combined, 8)), Hess = TRUE)
+with(RD.dataset, c(Q13_9, Q13_10, Q13_11, Q13_12, Q13_13, Q13_14, Q13_15, Q13_16))
+?polr
+as.factor(with(RD.dataset, c(Q13_9, Q13_10, Q13_11, Q13_12, Q13_13, Q13_14, Q13_15, Q13_16)))
+orderedFC <- MASS::polr(as/factor(with(RD.dataset, c(Q13_9, Q13_10, Q13_11, Q13_12, Q13_13, Q13_14, Q13_15, Q13_16))) ~ as.factor(rep(LETTERS[1:8], each = 69)) + as.factor(rep(RD.dataset$Q17_combined, 8)), Hess = TRUE)
+orderedFC <- MASS::polr(as.factor(with(RD.dataset, c(Q13_9, Q13_10, Q13_11, Q13_12, Q13_13, Q13_14, Q13_15, Q13_16))) ~ as.factor(rep(LETTERS[1:8], each = 69)) + as.factor(rep(RD.dataset$Q17_combined, 8)), Hess = TRUE)
+summary(orderedFC)
+car::Anova(orderedFC)
+orderedFC <- MASS::polr(as.factor(with(RD.dataset, c(Q13_9, Q13_10, Q13_11, Q13_12, Q13_13, Q13_14, Q13_15, Q13_16))) ~ as.factor(rep(LETTERS[1:8], each = 69)) * as.factor(rep(RD.dataset$Q17_combined, 8)), Hess = TRUE)
+car::Anova(orderedFC)
+car::Anova(orderedFC, type = 3)
+Fut.Ch <- data.frame("ranks" = as.factor(with(RD.dataset, c(Q13_9, Q13_10, Q13_11, Q13_12, Q13_13, Q13_14, Q13_15, Q13_16))), "challenge" = as.factor(rep(LETTERS[1:8], each = 69)) "career_stage" = as.factor(rep(RD.dataset$Q17_combined, 8)))
+Fut.Ch <- data.frame("ranks" = as.factor(with(RD.dataset, c(Q13_9, Q13_10, Q13_11, Q13_12, Q13_13, Q13_14, Q13_15, Q13_16))), "challenge" = as.factor(rep(LETTERS[1:8], each = 69)), "career_stage" = as.factor(rep(RD.dataset$Q17_combined, 8)))
+orderedFC <- MASS::polr(ranks ~ challenge * career_stage, data = Fut.Ch, Hess = TRUE)
+summary(orderedFC)
+orderedFC <- MASS::polr(ranks ~ challenge + career_stage, data = Fut.Ch, Hess = TRUE)
+summary(orderedFC)
+car::Anova(orderedFC, type = 3)
+orderedFC <- MASS::polr(ranks ~ challenge * career_stage, data = Fut.Ch, Hess = TRUE)
+summary(orderedFC)
+car::Anova(orderedFC, type = 3)
+emmeans::emmeans(orderedFC, ~ career_stage)
+emmeans::emmeans(orderedFC, ~ challenge | career_stage)
+emmeans::emmeans(orderedFC, ~ career_stage | challenge)
+pairs(orderedFC)
+pairs(emmeans::emmeans(orderedFC, ~ career_stage | challenge))
+table(Fut.Ch$career_stage)
+RD.dataset$Q17_combined
+RD.dataset$Q17_combined == 0
+sum(RD.dataset$Q17_combined == 0)
+orderedFC <- MASS::polr(ranks ~ challenge, data = Fut.Ch, Hess = TRUE)
+summary(orderedFC)
+Fut.Ch
+sum(is.na(Fut.Ch$ranks))
+housing
+fitted(orderedFC)
+Fit.Ch$probs <- fitted(orderedFC)#
+ggplot(Fut.Ch, aes(x = career_stage, y = probs, colour = challenge)) + #
+	geom_point()
+ggplot2::ggplot(Fut.Ch, aes(x = career_stage, y = probs, colour = challenge)) +
+geom_point()
+ggplot::ggplot(Fut.Ch, aes(x = career_stage, y = probs, colour = challenge)) + #
+	geom_point()
+ggplot2::ggplot(Fut.Ch, aes(x = career_stage, y = probs, colour = challenge)) + #
+	geom_point()
+ggplot2::ggplot(Fut.Ch, aes(x = career_stage, y = probs, colour = challenge))
+library(ggplot2)
+ggplot(Fut.Ch, aes(x = career_stage, y = probs, colour = challenge)) + #
+	geom_point()
+Fit.Ch$probs
+Fut.Ch$probs <- fitted(orderedFC)
